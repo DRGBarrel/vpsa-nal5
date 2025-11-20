@@ -2,22 +2,25 @@
 package redovanje
 import "fmt"
 
-stOcen := 5
-minOcena := 1
-maxOcena := 10
-SetSt(nov int){
+var stOcen = 5
+var minOcena = 1
+var maxOcena = 10
+func SetSt(nov int){
     stOcen=nov
 }
-SetMin(nov int)(
+func SetMin(nov int){
     minOcena=nov
-)
-SetMax(nov int){
+}
+func SetMax(nov int){
     maxOcena=nov
 }
 type Student struct {
     ime     string
     priimek string
     ocene   []int
+}
+func AddStudent(studs map[string]Student, vpisna string, ime string, priimek string, ocene []int){
+    studs[vpisna]=Student{ime,priimek,ocene}
 }
 func povprecje(studenti map[string]Student, vpisnaStevilka string) float64{
     _,ok:=studenti[vpisnaStevilka]
@@ -56,7 +59,7 @@ func DodajOceno(studenti map[string]Student, vpisnaStevilka string, ocena int){
 func IzpisVsehOcen(studenti map[string]Student){
     fmt.Println("REDOVALNICA:")
     for stev,stud:=range studenti{
-        fmt.Printf("%d - %s %s: [",stev,stud.ime,stud.priimek)
+        fmt.Printf("%s - %s %s: [",stev,stud.ime,stud.priimek)
         for v := range len(stud.ocene)-1{
             fmt.Printf("%d ",stud.ocene[v])
         }
@@ -70,9 +73,8 @@ func IzpisiKoncniUspeh(studenti map[string]Student){
         povp:=povprecje(studenti,stev)
         fmt.Printf("%s %s: povprečna ocena %.1f -> ",stud.ime,stud.priimek,povp)
         if(len(stud.ocene)<stOcen){
-            fmt.Printf("Študent nima dovolj ocen za uspeh")
-        }
-        else{
+            fmt.Println("Študent nima dovolj ocen za uspeh")
+        }else{
             switch {
             case povp>=9:
                 fmt.Println("Odličen študent!")

@@ -1,7 +1,11 @@
 package main
 import (
-    "redovalnica/redovanje"
+	"context"
+	"fmt"
+    "github.com/DRGBarrel/vpsa-nal5/redovalnica"
     "github.com/urfave/cli/v3"
+	"log"
+	"os"
 )
     
 func main(){
@@ -32,18 +36,18 @@ func main(){
             redovanje.SetSt(stOcen)
             redovanje.SetMin(minOcena)
             redovanje.SetMax(maxOcena)
-            var studenti map[string]Student
-            studenti=make(map[string]Student)
-            studenti["63230000"]=Student{"Tone","Kovač",[]int{7}}
-            studenti["63230002"]=Student{"Eni","Drugi",[]int{10}}
-            studenti["63230004"]=Student{"Ime","Priimek",[]int{4,6}}
+            var studenti map[string]redovanje.Student
+            studenti=make(map[string]redovanje.Student)
+            redovanje.AddStudent(studenti,"63230000","Tone","Kovač",[]int{7})
+            redovanje.AddStudent(studenti,"63230002","Eni","Drugi",[]int{10})
+            redovanje.AddStudent(studenti,"63230004","Ime","Priimek",[]int{4,6})
             fmt.Println(studenti)
-            redovanje.dodajOceno(studenti,"42",3)
-            redovanje.dodajOceno(studenti,"63230000",8)
-            redovanje.dodajOceno(studenti,"63230000",42)
+            redovanje.DodajOceno(studenti,"42",3)
+            redovanje.DodajOceno(studenti,"63230000",8)
+            redovanje.DodajOceno(studenti,"63230000",42)
             fmt.Println(studenti)
-            redovanje.izpisRedovalnice(studenti)
-            redovanje.izpisiKoncniUspeh(studenti)
+            redovanje.IzpisVsehOcen(studenti)
+            redovanje.IzpisiKoncniUspeh(studenti)
 			return nil
 		},
 	}
